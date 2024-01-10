@@ -1,0 +1,41 @@
+{
+  "name": "cloudflared-output-domain",
+  "version": "0.0.1",
+  "license": "MIT",
+  "bin": {
+    "cloudflared-output-domain": "dist/cjs/command/index.js"
+  },
+  "main": "./dist/cjs/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "exports": {
+    "require": "./dist/cjs/index.js",
+    "import": "./dist/esm/index.js"
+  },
+  "scripts": {
+    "build": "tsc && tsc --project ./tsconfig.esm.json && cpy esm dist",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "test:tunnel": "cloudflared tunnel --no-autoupdate --metrics 127.0.0.1:55555 --url http://127.0.0.1:8080",
+    "test": "ts-node ./src/command --url http://127.0.0.1:55555 -- echo {url}",
+    "test2": "ts-node ./src/command --url http://127.0.0.1:55555 -- echo {host}"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.6",
+    "@types/node": "^20.10.8",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/minimist": "^1.2.5",
+    "cross-spawn": "^7.0.3",
+    "minimist": "^1.2.8"
+  }
+}
